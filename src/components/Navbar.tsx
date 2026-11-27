@@ -58,7 +58,8 @@ export function Navbar() {
   }, [menuOpen]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-surface/95 backdrop-blur-md">
+    <>
+      <header className="sticky top-0 z-40 border-b border-border bg-surface/95 backdrop-blur-md">
       <div className="mx-auto flex max-w-[1280px] items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-10">
         <Link
           href="/"
@@ -115,6 +116,8 @@ export function Navbar() {
         </div>
       </div>
 
+      </header>
+
       {menuOpen && (
         <div
           id="mobile-nav-drawer"
@@ -122,7 +125,7 @@ export function Navbar() {
           role="dialog"
           aria-modal="true"
           aria-label="Mobile navigation"
-          className="crunche-modal-enter fixed inset-0 z-50 flex flex-col bg-surface px-4 py-4 sm:px-6 lg:hidden"
+          className="crunche-modal-enter fixed inset-0 z-50 flex h-[100dvh] w-full flex-col overflow-y-auto bg-surface px-4 py-4 sm:px-6 lg:hidden"
         >
           <div className="flex items-center justify-between border-b border-border pb-3">
             <Link
@@ -182,6 +185,6 @@ export function Navbar() {
           </div>
         </div>
       )}
-    </header>
+    </>
   );
 }
