@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ArrowRight, Check, Clock, MessageCircle } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
+import { FullscreenImageButton } from "@/components/FullscreenImageButton";
 import { siteConfig } from "@/config/site";
 import { bulkTiers, giftBoxes } from "@/data/gift-boxes";
 import { formatNaira } from "@/lib/format";
@@ -54,7 +54,6 @@ export default function GiftingPage() {
 
         <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-3">
           {giftBoxes.map((box) => {
-            const preview = box.images[0];
             const waHref = buildWhatsAppLink({
               flavour: `${box.name} Gift Box`,
               qty: 1,
@@ -65,15 +64,12 @@ export default function GiftingPage() {
                 key={box.slug}
                 className="flex flex-col rounded-[20px] border border-border bg-surface-elevated p-6 shadow-[0_12px_32px_-12px_rgb(43_24_16/0.12)]"
               >
-                <div className="relative aspect-[4/3] overflow-hidden rounded-[14px] bg-surface-muted">
-                  <Image
-                    src={preview.src}
-                    alt={preview.alt}
-                    fill
-                    sizes="(max-width: 1023px) 100vw, 380px"
-                    className="object-cover"
-                  />
-                </div>
+                <FullscreenImageButton
+                  images={box.images}
+                  title={`${box.name} Gift Box`}
+                  sizes="(max-width: 1023px) 100vw, 380px"
+                  className="aspect-[4/3] rounded-[14px] bg-surface-muted"
+                />
 
                 <div className="mt-5">
                   <h2 className="font-display text-2xl font-bold text-ink">

@@ -2,9 +2,9 @@
 
 import { useGSAP } from "@gsap/react";
 import { ArrowRight, Gift, MessageCircle } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
+import { FullscreenImageButton } from "@/components/FullscreenImageButton";
 import { giftBoxes } from "@/data/gift-boxes";
 import { formatNaira } from "@/lib/format";
 import { revealOnScroll } from "@/lib/reveal";
@@ -60,7 +60,6 @@ export function GiftingTeaser() {
 
       <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
         {giftBoxes.map((box) => {
-          const preview = box.images[0];
           const waHref = buildWhatsAppLink({
             flavour: `${box.name} Gift Box`,
             qty: 1,
@@ -71,19 +70,17 @@ export function GiftingTeaser() {
               data-gifting-reveal
               className="flex flex-col rounded-[20px] border border-border bg-surface-elevated p-5 shadow-[0_12px_32px_-12px_rgb(43_24_16/0.12)]"
             >
-              <div className="relative aspect-[4/3] overflow-hidden rounded-[14px] bg-surface-muted">
-                <Image
-                  src={preview.src}
-                  alt={preview.alt}
-                  fill
-                  sizes="(max-width: 767px) 100vw, 400px"
-                  className="object-cover"
-                />
+              <FullscreenImageButton
+                images={box.images}
+                title={`${box.name} Gift Box`}
+                sizes="(max-width: 767px) 100vw, 400px"
+                className="aspect-[4/3] rounded-[14px] bg-surface-muted"
+              >
                 <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-caramel px-3 py-1 text-xs font-semibold text-on-caramel">
                   <Gift className="h-3.5 w-3.5" strokeWidth={1.75} aria-hidden="true" />
                   <span>{box.name}</span>
                 </span>
-              </div>
+              </FullscreenImageButton>
 
               <div className="mt-4 flex flex-1 flex-col">
                 <div className="flex items-baseline justify-between gap-2">

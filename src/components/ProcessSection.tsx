@@ -1,15 +1,24 @@
 "use client";
 
 import { useGSAP } from "@gsap/react";
+import { Expand } from "lucide-react";
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { ImageLightbox, type LightboxImage } from "@/components/ImageLightbox";
 import { processSteps } from "@/data/process";
 import { gsap } from "@/lib/gsap";
 import { revealOnScroll } from "@/lib/reveal";
 
+const PROCESS_IMAGES: LightboxImage[] = processSteps.map((s) => ({
+  category: `Step 0${s.step} · ${s.title}`,
+  src: s.imageSrc,
+  alt: s.imageAlt,
+}));
+
 export function ProcessSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const lineRef = useRef<HTMLDivElement>(null);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   useGSAP(
     () => {
@@ -80,21 +89,32 @@ export function ProcessSection() {
       </div>
 
       <ol className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {processSteps.map((item) => (
+        {processSteps.map((item, idx) => (
           <li
             key={item.step}
             data-process-reveal
             className="flex flex-col rounded-[20px] border border-border bg-surface-elevated p-5"
           >
-            <div className="relative aspect-[4/3] overflow-hidden rounded-[14px] bg-surface-muted">
+            <button
+              type="button"
+              onClick={() => setLightboxIndex(idx)}
+              aria-label={`Open ${item.title} photo in fullscreen`}
+              className="group relative aspect-[4/3] w-full overflow-hidden rounded-[14px] bg-surface-muted text-left"
+            >
               <Image
                 src={item.imageSrc}
                 alt={item.imageAlt}
                 fill
                 sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 280px"
-                className="object-cover"
+                className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
               />
-            </div>
+              <span
+                aria-hidden="true"
+                className="absolute right-2.5 top-2.5 inline-flex h-8 w-8 items-center justify-center rounded-full bg-band/75 text-band-ink opacity-90"
+              >
+                <Expand className="h-4 w-4" strokeWidth={1.75} />
+              </span>
+            </button>
             <span className="mt-4 font-display text-2xl font-bold text-caramel-ink">
               0{item.step}
             </span>
@@ -110,6 +130,16 @@ export function ProcessSection() {
           </li>
         ))}
       </ol>
+
+      {lightboxIndex !== null && (
+        <ImageLightbox
+          images={PROCESS_IMAGES}
+          index={lightboxIndex}
+          title="How It's Made"
+          onIndexChange={setLightboxIndex}
+          onClose={() => setLightboxIndex(null)}
+        />
+      )}
     </section>
   );
 }

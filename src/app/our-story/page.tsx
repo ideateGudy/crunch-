@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ArrowRight, MessageCircle, ShieldCheck, Sparkles, Utensils } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
+import { FullscreenImageButton } from "@/components/FullscreenImageButton";
 import { siteConfig } from "@/config/site";
 import { buildWhatsAppLink } from "@/lib/whatsapp";
 
@@ -75,15 +75,23 @@ export default function OurStoryPage() {
           </div>
 
           <div className="lg:col-span-5">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-[28px] border border-border bg-surface-elevated">
-              <Image
-                src="/images/site/story/ingredients-1.webp"
-                alt="Flour, butter, whole milk, nutmeg, and fresh ingredients for CRUNCHÉ chin chin"
-                fill
-                sizes="(max-width: 1023px) 100vw, 520px"
-                className="object-cover"
-              />
-            </div>
+            <FullscreenImageButton
+              images={[
+                {
+                  category: "Ingredients",
+                  src: "/images/site/story/ingredients-1.webp",
+                  alt: "Flour, butter, whole milk, nutmeg, and fresh ingredients for CRUNCHÉ chin chin",
+                },
+                {
+                  category: "Kitchen",
+                  src: "/images/site/story/kitchen-1.webp",
+                  alt: "Freshly made CRUNCHÉ chin chin in our kitchen",
+                },
+              ]}
+              title="Our Story"
+              sizes="(max-width: 1023px) 100vw, 520px"
+              className="aspect-[4/3] rounded-[28px] border border-border bg-surface-elevated"
+            />
           </div>
         </div>
       </section>

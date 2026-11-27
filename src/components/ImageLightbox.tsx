@@ -3,10 +3,15 @@
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
-import type { ProductImage } from "@/data/flavours";
+
+export interface LightboxImage {
+  category: string;
+  src: string;
+  alt: string;
+}
 
 export interface ImageLightboxProps {
-  images: ProductImage[];
+  images: LightboxImage[];
   index: number;
   title: string;
   onIndexChange: (nextIndex: number) => void;

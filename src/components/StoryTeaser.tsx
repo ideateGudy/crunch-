@@ -2,10 +2,23 @@
 
 import { useGSAP } from "@gsap/react";
 import { ArrowRight } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
+import { FullscreenImageButton } from "@/components/FullscreenImageButton";
 import { revealOnScroll } from "@/lib/reveal";
+
+const STORY_IMAGES = [
+  {
+    category: "Kitchen",
+    src: "/images/site/story/kitchen-1.webp",
+    alt: "Freshly made CRUNCHÉ chin chin in our kitchen",
+  },
+  {
+    category: "Ingredients",
+    src: "/images/site/story/ingredients-1.webp",
+    alt: "Flour, butter, whole milk, nutmeg, and fresh ingredients for CRUNCHÉ chin chin",
+  },
+];
 
 export function StoryTeaser() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -56,15 +69,12 @@ export function StoryTeaser() {
         </div>
 
         <div data-story-reveal className="lg:col-span-6">
-          <div className="relative aspect-[4/3] overflow-hidden rounded-[28px] border border-border bg-surface-elevated">
-            <Image
-              src="/images/site/story/kitchen-1.webp"
-              alt="Freshly made CRUNCHÉ chin chin in our kitchen"
-              fill
-              sizes="(max-width: 1023px) 100vw, 600px"
-              className="object-cover"
-            />
-          </div>
+          <FullscreenImageButton
+            images={STORY_IMAGES}
+            title="Our Story"
+            sizes="(max-width: 1023px) 100vw, 600px"
+            className="aspect-[4/3] rounded-[28px] border border-border bg-surface-elevated"
+          />
         </div>
       </div>
     </section>
