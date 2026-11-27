@@ -22,6 +22,7 @@ export function ImageLightbox({
 }: ImageLightboxProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeBtnRef = useRef<HTMLButtonElement>(null);
+  const touchStartX = useRef<number | null>(null);
 
   const safeIndex = ((index % images.length) + images.length) % images.length;
   const current = images[safeIndex];
@@ -99,8 +100,25 @@ export function ImageLightbox({
         </button>
       </div>
 
-      <div className="relative mx-auto mt-4 flex min-h-0 w-full max-w-[1040px] flex-1 items-center justify-center">
-        <div className="relative h-full w-full overflow-hidden rounded-[28px] bg-band-elevated">
+      <div
+        className="relative mx-auto mt-3 flex min-h-0 w-full flex-1 items-center justify-center"
+        onTouchStart={(e) => {
+          touchStartX.current = e.touches[0]?.clientX ?? null;
+        }}
+        onTouchEnd={(e) => {
+          if (touchStartX.current === null || images.length <= 1) return;
+          const delta = (e.changedTouches[0]?.clientX ?? 0) - touchStartX.current;
+          touchStartX.current = null;
+          if (Math.abs(delta) > 36) {
+            if (delta < 0) {
+              onIndexChange((safeIndex + 1) % images.length);
+            } else {
+              onIndexChange((safeIndex - 1 + images.length) % images.length);
+            }
+          }
+        }}
+      >
+        <div className="relative h-full w-full overflow-hidden rounded-[20px] bg-band-elevated sm:rounded-[28px]">
           <Image
             src={current.src}
             alt={current.alt}
