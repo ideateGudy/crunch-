@@ -10,7 +10,7 @@ export const siteConfig = {
     "Premium, freshly made Nigerian chin chin in Classic golden, Coconut, Milk, Spicy and Peanut flavours.",
   locale: "en-NG",
   currency: "NGN",
-  url: "https://crunche.ng", // TODO(client): confirm production domain
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://crunche-phi.vercel.app",
 
   navLinks: [
     { label: "Shop", href: "/shop" },
