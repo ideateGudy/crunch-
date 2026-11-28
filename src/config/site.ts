@@ -29,8 +29,8 @@ export const siteConfig = {
   ] satisfies NavLink[],
 
   contact: {
-    whatsapp: "[WhatsApp number]", // TODO(client): +234XXXXXXXXXX
-    phone: "[Phone number]", // TODO(client): +234XXXXXXXXXX
+    whatsapp: "+2349033069636",
+    phone: "+2349033069636",
     email: "[Business email]", // TODO(client)
     address: "[Business address]", // TODO(client)
     hours: "[Business hours]", // TODO(client): e.g. Mon–Sat, 9:00 AM – 6:00 PM WAT
